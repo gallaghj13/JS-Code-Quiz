@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/reset.css">
-    <link rel="stylesheet" href="./assets/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/reset.css" />
+    <link rel="stylesheet" href="./assets/style.css" />
     <title>JS Code Quiz</title>
-</head>
-<body>
+  </head>
+  <body>
     <section>
-        <div id="timer-count">45</div>
+      <div>View High Scores</div>
+      <div id="timer-count">15</div>
+      <div id="time-left"></div>
     </section>
     <section id="container">
-        <button id="start-button" >Start Code Quiz!</button>
-        <div id="quiz"></div>
-            <div id="question"></div>
-            <div id="answers"></div>
-                <button class="answer" id="A" onclick="verifyAnswer('A')"></button>
-                <button class="answer" id="B" onclick="verifyAnswer('B')"></button>
-                <button class="answer" id="C" onclick="verifyAnswer('C')"></button>
-                <button class="answer" id="D" onclick="verifyAnswer('D')"></button>
+      <div id="start-prompt">
+        <p>
+          Welcome to the Javascript Coding Quiz! You will have 45 seconds to
+          complete the quiz. Your score will be equal to the number of correct
+          answers multiplied by the time left.
+        </p>
+        <button id="start-button">Start Code Quiz!</button>
+      </div>
+      <div id="score">
+        <h1>Code Quiz Over!</h1>
+        <p>Score:</p>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="playerName" name="playerName" /><br /><br />
+          <input type="submit" value="Submit" />
+        </form>
+        <button id="retake-btn">Retake Quiz</button>
+      </div>
+      <div id="quiz">
+        <div id="question"></div>
+        <div id="answers">
+          <button class="answer" id="A" data-name="A"></button>
+          <button class="answer" id="B" data-name="B"></button>
+          <button class="answer" id="C" data-name="C"></button>
+          <button class="answer" id="D" data-name="D"></button>
+        </div>
+      </div>
     </section>
     <script src="./assets/script.js"></script>
-</body>
+  </body>
 </html>

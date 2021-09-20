@@ -1,14 +1,18 @@
 // Selected Elements
-const timer = document.getElementById("timer-count");
-const quizContainer = document.getElementById("container");
-const start = document.getElementById("start-button");
-const quizBody = document.getElementById("quiz");
-const questions = document.getElementById("question");
-const answers = document.getElementById("answers");
-const answerChoiceA = document.getElementById("A");
-const answerChoiceB = document.getElementById("B");
-const answerChoiceC = document.getElementById("C");
-const answerChoiceD = document.getElementById("D");
+var timer = document.getElementById("timer-count");
+var quizContainer = document.getElementById("container");
+var start = document.getElementById("start-button");
+var quizBody = document.getElementById("quiz");
+var questions = document.getElementById("question");
+var answers = document.querySelector("#answers");
+var startText = document.getElementById("start-prompt");
+var scoreText = document.getElementById("score");
+var retakeButton = document.getElementById("retake-btn");
+var endTime = document.getElementById("time-left");
+var answerChoiceA = document.getElementById("A");
+var answerChoiceB = document.getElementById("B");
+var answerChoiceC = document.getElementById("C");
+var answerChoiceD = document.getElementById("D");
 
 // Questions
 const questionArray = [
@@ -58,9 +62,22 @@ const questionArray = [
 var lastQuestion = questionArray.length - 1;
 var currentQuestion = 0;
 var timeCounter = document.getElementById("timer-count");
-var secondsLeft = 45;
+var secondsLeft = 15;
+var numberOfCorrect = 0;
+var score = numberOfCorrect * secondsLeft;
+// var answer = document.getElementsByClassName("answer");
 
-start.addEventListener("click", startQuiz());
+
+start.addEventListener("click", startQuiz);
+retakeButton.addEventListener("click", retakeQuiz);
+answers.addEventListener("click", function(event){
+    var answerPicked = event.target;
+
+    if (answerPicked.matches("button")) {
+        var answer = answerPicked.getAttribute("data-name");
+    };
+    verifyAnswer(answer);
+});
  
 function startQuiz(){
 
@@ -70,40 +87,65 @@ function startQuiz(){
     
         if(secondsLeft === 0) {
           clearInterval(timerInterval);
-        //   need to move to quiz over screen
-          return;
+          totalScore(); 
           }
+        if(currentQuestion == questionArray.length - 1) {
+            clearInterval(timerInterval);
+        }
     
       }, 1000);
-    start.style.display = "none";
+    
+    startText.style.display = "none";
     displayQuestion();
     quizBody.style.display = "block";
 };
 
 function displayQuestion() {
+   
     var displayedQ = questionArray[currentQuestion];
-    questions.innerHTML = "<p>" + displayedQ.question + "</p>";
-    answerChoiceA.innerHTML = displayedQ.answerA;
-    answerChoiceB.innerHTML = displayedQ.answerB;
-    answerChoiceC.innerHTML = displayedQ.answerC;
-    answerChoiceD.innerHTML = displayedQ.answerD;
+    questions.textContent = displayedQ.question;
+    answerChoiceA.textContent = displayedQ.answerA;
+    answerChoiceB.textContent = displayedQ.answerB;
+    answerChoiceC.textContent = displayedQ.answerC;
+    answerChoiceD.textContent = displayedQ.answerD;
+    // need to change html in a different way than inner.html
 };
+
 
 function verifyAnswer(answer) {
     if (answer == questionArray[currentQuestion].correct){
         console.log("correct");
-        // document.getElementById(currentQuestion).style.backgroundColor = "green";
+        // document.getElementById().style.backgroundColor = "green";
+        numberOfCorrect++;
+        console.log(numberOfCorrect);
     } else {
         console.log("incorrect");
-        // document.getElementById(currentQuestion).style.backgroundColor = "red";
-    }
+        // document.getElementById().style.backgroundColor = "red";
+    };
     if (currentQuestion < questionArray.length - 1){
         currentQuestion++;
         displayQuestion();
+    } else {
+        totalScore();
     }
+  
+    // need to go to a score screen with a way to register score and initials
+};
 
-}
+function totalScore() {
+    quizBody.style.display = "none";
+    timer.style.display = "none";
+    endTime.style.display = "block";
+    endTime.textContent = timer.textContent;
+    scoreText.style.display = "block";
+    // need to display the score
+    retakeButton.style.display = "block";
+    console.log(secondsLeft);
+    console.log(score);
+};
+// need a retake quiz display and high score display
+function retakeQuiz() {
+    window.location.reload(false);
+};
 
-// start.style.display = "none";
-// displayQuestion();
-// quizBody.style.display = "block";
+

@@ -11,3 +11,19 @@
 #start-button {
     display: block;
 }
+
+#start-prompt {
+    display: block;
+}
+
+#score {
+    display: none;
+}
+
+#retake-btn {
+    display: none;
+}
+
+#time-left {
+    display: none;
+}
