@@ -8,11 +8,14 @@ var answers = document.querySelector("#answers");
 var startText = document.getElementById("start-prompt");
 var scoreText = document.getElementById("score");
 var retakeButton = document.getElementById("retake-btn");
+var submitButton = document.getElementById("submit-btn");
 var endTime = document.getElementById("time-left");
 var answerChoiceA = document.getElementById("A");
 var answerChoiceB = document.getElementById("B");
 var answerChoiceC = document.getElementById("C");
 var answerChoiceD = document.getElementById("D");
+var userScore = document.getElementById("user-score");
+var highscore = document.getElementById("highscore-page");
 
 // Questions
 const questionArray = [
@@ -41,19 +44,19 @@ const questionArray = [
         correct: "B"
     },
     {
-        question: "Question 4",
-        answerA: "A",            
-        answerB: "B",
-        answerC: "C",
-        answerD: "D",
+        question: "What type of punctuation is used around an object?",
+        answerA: "curly brackets",            
+        answerB: "square brackets",
+        answerC: "semi-colon",
+        answerD: "parentheses",
         correct: "A"
     },
     {
-        question: "Question 5",
-        answerA: "A",            
-        answerB: "B",
-        answerC: "C",
-        answerD: "D",
+        question: "Which dialog box displays a message and a data entry field?",
+        answerA: "Msg()",            
+        answerB: "Alert()",
+        answerC: "Prompt()",
+        answerD: "Confirm()",
         correct: "C"
     },
 ];
@@ -64,8 +67,9 @@ var currentQuestion = 0;
 var timeCounter = document.getElementById("timer-count");
 var secondsLeft = 15;
 var numberOfCorrect = 0;
-var score = numberOfCorrect * secondsLeft;
-// var answer = document.getElementsByClassName("answer");
+var correct = localStorage.getItem("correct");
+var timeleft = localStorage.getItem("time-leftover");
+var score = (correct * timeleft);
 
 
 start.addEventListener("click", startQuiz);
@@ -78,6 +82,11 @@ answers.addEventListener("click", function(event){
     };
     verifyAnswer(answer);
 });
+submitButton.addEventListener("click", function(event){
+    event.preventDefault();
+    submitScore();
+})
+
  
 function startQuiz(){
 
@@ -108,7 +117,6 @@ function displayQuestion() {
     answerChoiceB.textContent = displayedQ.answerB;
     answerChoiceC.textContent = displayedQ.answerC;
     answerChoiceD.textContent = displayedQ.answerD;
-    // need to change html in a different way than inner.html
 };
 
 
@@ -117,6 +125,7 @@ function verifyAnswer(answer) {
         console.log("correct");
         // document.getElementById().style.backgroundColor = "green";
         numberOfCorrect++;
+        localStorage.setItem("correct", numberOfCorrect);
         console.log(numberOfCorrect);
     } else {
         console.log("incorrect");
@@ -137,13 +146,18 @@ function totalScore() {
     timer.style.display = "none";
     endTime.style.display = "block";
     endTime.textContent = timer.textContent;
+    localStorage.setItem("time-leftover", endTime.textContent);
     scoreText.style.display = "block";
-    // need to display the score
     retakeButton.style.display = "block";
+    userScore.textContent = localStorage.getItem("correct");
     console.log(secondsLeft);
     console.log(score);
 };
-// need a retake quiz display and high score display
+
+function submitScore() {
+    highscore.style.display = "block";
+}
+
 function retakeQuiz() {
     window.location.reload(false);
 };
