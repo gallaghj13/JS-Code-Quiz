@@ -25,13 +25,16 @@
       </div>
       <div id="score">
         <h1>Code Quiz Over!</h1>
-        <p>Score:</p>
+        <p>Score: <span id="user-score"></span></p>
         <form>
           <label for="name">Name:</label>
           <input type="text" id="playerName" name="playerName" /><br /><br />
-          <input type="submit" value="Submit" />
+          <input id="submit-btn" type="submit" value="Submit" />
         </form>
         <button id="retake-btn">Retake Quiz</button>
+      </div>
+      <div id="highscore-page">
+        <h1>Highscores</h1>
       </div>
       <div id="quiz">
         <div id="question"></div>
