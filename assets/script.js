@@ -16,6 +16,9 @@ var answerChoiceC = document.getElementById("C");
 var answerChoiceD = document.getElementById("D");
 var userScore = document.getElementById("user-score");
 var highscore = document.getElementById("highscore-page");
+var playerName = document.getElementById("playerName");
+var highScoreBtn = document.getElementById("highscore-button");
+var returnBtn = document.getElementById("return-button");
 
 // Questions
 const questionArray = [
@@ -65,15 +68,16 @@ const questionArray = [
 var lastQuestion = questionArray.length - 1;
 var currentQuestion = 0;
 var timeCounter = document.getElementById("timer-count");
-var secondsLeft = 15;
+var secondsLeft = 30;
 var numberOfCorrect = 0;
 var correct = localStorage.getItem("correct");
 var timeleft = localStorage.getItem("time-leftover");
-var score = (correct * timeleft);
+var score = correct * timeleft;
 
 
 start.addEventListener("click", startQuiz);
 retakeButton.addEventListener("click", retakeQuiz);
+
 answers.addEventListener("click", function(event){
     var answerPicked = event.target;
 
@@ -82,10 +86,16 @@ answers.addEventListener("click", function(event){
     };
     verifyAnswer(answer);
 });
+
 submitButton.addEventListener("click", function(event){
     event.preventDefault();
     submitScore();
-})
+});
+
+
+highScoreBtn.addEventListener("click", viewScore);
+
+returnBtn.addEventListener("click", retakeQuiz);
 
  
 function startQuiz(){
@@ -113,23 +123,28 @@ function displayQuestion() {
    
     var displayedQ = questionArray[currentQuestion];
     questions.textContent = displayedQ.question;
-    answerChoiceA.textContent = displayedQ.answerA;
-    answerChoiceB.textContent = displayedQ.answerB;
-    answerChoiceC.textContent = displayedQ.answerC;
-    answerChoiceD.textContent = displayedQ.answerD;
+    answerChoiceA.textContent = "A. " + displayedQ.answerA;
+    answerChoiceB.textContent = "B. " + displayedQ.answerB;
+    answerChoiceC.textContent = "C. " + displayedQ.answerC;
+    answerChoiceD.textContent = "D. " + displayedQ.answerD;
 };
 
 
 function verifyAnswer(answer) {
     if (answer == questionArray[currentQuestion].correct){
-        console.log("correct");
-        // document.getElementById().style.backgroundColor = "green";
         numberOfCorrect++;
+        var greenCorrect = document.createElement("h2");
+        greenCorrect.textContent = "Correct";
+        greenCorrect.style.color = "green";
+        var answersList = document.getElementById("answers");
+        answersList.appendChild(greenCorrect);
         localStorage.setItem("correct", numberOfCorrect);
-        console.log(numberOfCorrect);
     } else {
-        console.log("incorrect");
-        // document.getElementById().style.backgroundColor = "red";
+        var redWrong = document.createElement("h2");
+        redWrong.textContent = "Incorrect";
+        redWrong.style.color = "red";
+        var answersList = document.getElementById("answers");
+        answersList.appendChild(redWrong);
     };
     if (currentQuestion < questionArray.length - 1){
         currentQuestion++;
@@ -138,7 +153,7 @@ function verifyAnswer(answer) {
         totalScore();
     }
   
-    // need to go to a score screen with a way to register score and initials
+
 };
 
 function totalScore() {
@@ -149,14 +164,52 @@ function totalScore() {
     localStorage.setItem("time-leftover", endTime.textContent);
     scoreText.style.display = "block";
     retakeButton.style.display = "block";
-    userScore.textContent = localStorage.getItem("correct");
+    submitButton.style.display = "block";
+    userScore.textContent = score;
     console.log(secondsLeft);
     console.log(score);
 };
 
+function printScore() {
+    var highScore = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    highScore.sort(function(a, b){
+        return b.score - a.score;
+    })
+    console.log(highScore)
+    highScore.forEach(function(score){
+        var listItem = document.createElement("li");
+        listItem.textContent = "Name: " + score.username + " Score: " + score.score;
+        var highscoreList = document.getElementById("highscore-list");
+        highscoreList.appendChild(listItem);
+    })
+};
+
 function submitScore() {
+    var newName = playerName.value.trim();
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    var newScore = { score: score, username: newName};
+
+    highscores.push(newScore);
+
+    endTime.style.display = "none";
+    scoreText.style.display = "none";
+    retakeButton.style.display = "block";
     highscore.style.display = "block";
-}
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+    localStorage.getItem("player-name");
+    printScore();
+};
+
+function viewScore () {
+    startText.style.display = "none";
+    start.style.display = "none";
+    quizBody.style.display = "none";
+    timer.style.display = "none";
+    highscore.style.display = "block";
+    returnBtn.style.display = "block";
+
+    printScore();
+};
 
 function retakeQuiz() {
     window.location.reload(false);

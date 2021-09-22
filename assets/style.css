@@ -4,26 +4,116 @@
     padding: 0;
 }
 
-#quiz {
-    display: none;
+#header {
+    display: inline-flex;
+    width: 100%;
+    height: 5rem;
+    font-size: 1.5rem;
 }
 
-#start-button {
-    display: block;
+#highscore-button {
+    flex-grow: 1;
+    color: purple;
+    cursor: pointer;
+}
+
+#container {
+    /* display: flex; */
+    justify-content: center;
+    height: 20rem;
+    width: 100vw;  
 }
 
 #start-prompt {
-    display: block;
+    border: solid black;
+    padding: 2rem;
+    text-align: center;
+    background-color: silver;
+    margin: 0 13rem 0 13rem;
+}
+
+#start-prompt p {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: flex-start;
+    height: 9vh;
+    width: 50vw;
+    font-size: large;
+    padding: 1rem 0 2rem 0;
+}
+
+#start-prompt h2 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#start-button {
+    display: flex;
+    margin: 2rem 0 0 10.5rem;
+    justify-content: center;
+    background-color: rgb(23, 23, 70);
+    color:silver;
+    padding: .5rem;
+}
+
+#quiz {
+    display: none;
+    border: solid black;
+    padding: 2rem;
+    text-align: center;
+    background-color: silver;
+    margin: 0 13rem 0 13rem;
+}
+
+#question {
+    font-size: 2rem;
+}
+
+.answer {
+    display: flex;
+    margin: 1rem 0 1rem 0;
+    justify-content: center;
+    background-color: rgb(23, 23, 70);
+    color:silver;
+    padding: .25rem;
 }
 
 #score {
     display: none;
+    border: solid black;
+    padding: 2rem;
+    text-align: center;
+    background-color: silver;
+    margin: 0 13rem 0 13rem;
 }
 
 #retake-btn {
     display: none;
+    background-color: rgb(23, 23, 70);
+    color:silver;
+    margin: .5rem 0 .5rem 0;
+    padding: .5rem;
+}
+
+#submit-btn {
+    display: none;
+    background-color: rgb(23, 23, 70);
+    color:silver;
+    padding: .5rem;
+}
+
+#return-button {
+    display: none;
+    background-color: rgb(23, 23, 70);
+    color:silver;
+    padding: .5rem;
 }
 
 #time-left {
+    display: none;
+}
+
+#highscore-page {
     display: none;
 }

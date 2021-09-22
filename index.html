@@ -9,17 +9,18 @@
     <title>JS Code Quiz</title>
   </head>
   <body>
-    <section>
-      <div>View High Scores</div>
-      <div id="timer-count">15</div>
+    <section id="header">
+      <div id="highscore-button">View High Scores</div>
+      <pre>Time:  </pre>
+      <div id="timer-count">30</div>
       <div id="time-left"></div>
     </section>
     <section id="container">
       <div id="start-prompt">
+        <h2>Javascript Coding Quiz!</h2>
         <p>
           Welcome to the Javascript Coding Quiz! You will have 45 seconds to
-          complete the quiz. Your score will be equal to the number of correct
-          answers multiplied by the time left.
+          complete the quiz. Your score will be determined based on the number of correct answers and the amount of time leftover.
         </p>
         <button id="start-button">Start Code Quiz!</button>
       </div>
@@ -35,6 +36,8 @@
       </div>
       <div id="highscore-page">
         <h1>Highscores</h1>
+        <ol id="highscore-list"></ol>
+        <button id="return-button">Return</button>
       </div>
       <div id="quiz">
         <div id="question"></div>
