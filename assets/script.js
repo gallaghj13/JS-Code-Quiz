@@ -68,11 +68,9 @@ const questionArray = [
 var lastQuestion = questionArray.length - 1;
 var currentQuestion = 0;
 var timeCounter = document.getElementById("timer-count");
-var secondsLeft = 30;
+var secondsLeft = 45;
 var numberOfCorrect = 0;
-var correct = localStorage.getItem("correct");
-var timeleft = localStorage.getItem("time-leftover");
-var score = correct * timeleft;
+
 
 
 start.addEventListener("click", startQuiz);
@@ -145,6 +143,7 @@ function verifyAnswer(answer) {
         redWrong.style.color = "red";
         var answersList = document.getElementById("answers");
         answersList.appendChild(redWrong);
+        secondsLeft = secondsLeft - 5;
     };
     if (currentQuestion < questionArray.length - 1){
         currentQuestion++;
@@ -157,17 +156,18 @@ function verifyAnswer(answer) {
 };
 
 function totalScore() {
+    endTime.textContent = timer.textContent;
+    localStorage.setItem("time-leftover", endTime.textContent);
+    var correct = localStorage.getItem("correct");
+    var timeleft = localStorage.getItem("time-leftover");
+    var score = correct * timeleft;
     quizBody.style.display = "none";
     timer.style.display = "none";
     endTime.style.display = "block";
-    endTime.textContent = timer.textContent;
-    localStorage.setItem("time-leftover", endTime.textContent);
     scoreText.style.display = "block";
     retakeButton.style.display = "block";
     submitButton.style.display = "block";
     userScore.textContent = score;
-    console.log(secondsLeft);
-    console.log(score);
 };
 
 function printScore() {
@@ -205,6 +205,7 @@ function viewScore () {
     start.style.display = "none";
     quizBody.style.display = "none";
     timer.style.display = "none";
+    scoreText.style.display = "none";
     highscore.style.display = "block";
     returnBtn.style.display = "block";
 
