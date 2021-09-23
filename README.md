@@ -18,7 +18,7 @@ The user is first introduced to the quiz with a description of the quiz and the 
 
 ## Links
 
-URL for the deployed website: https://gallaghj13.github.io/JS-Code-Quiz/
+URL for the deployed website: https://gallaghj13.github.io/JS-Code-Quiz/ \
 Github repository: https://github.com/gallaghj13/JS-Code-Quiz
 
-![](./assets/images/portfolio.gif)
+![](./assets/JS-Code.png)
