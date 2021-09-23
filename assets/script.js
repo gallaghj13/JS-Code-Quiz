@@ -70,6 +70,9 @@ var currentQuestion = 0;
 var timeCounter = document.getElementById("timer-count");
 var secondsLeft = 45;
 var numberOfCorrect = 0;
+var correct = localStorage.getItem("correct");
+var timeleft = localStorage.getItem("time-leftover");
+var score = correct * timeleft;
 
 
 
@@ -143,7 +146,6 @@ function verifyAnswer(answer) {
         redWrong.style.color = "red";
         var answersList = document.getElementById("answers");
         answersList.appendChild(redWrong);
-        secondsLeft = secondsLeft - 5;
     };
     if (currentQuestion < questionArray.length - 1){
         currentQuestion++;
@@ -175,7 +177,7 @@ function printScore() {
     highScore.sort(function(a, b){
         return b.score - a.score;
     })
-    console.log(highScore)
+    
     highScore.forEach(function(score){
         var listItem = document.createElement("li");
         listItem.textContent = "Name: " + score.username + " Score: " + score.score;
