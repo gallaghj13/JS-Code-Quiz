@@ -141,12 +141,12 @@ function verifyAnswer(answer) {
         answersList.appendChild(greenCorrect);
         localStorage.setItem("correct", numberOfCorrect);
     } else {
-        secondsLeft - 5;
         var redWrong = document.createElement("h2");
         redWrong.textContent = "Incorrect";
         redWrong.style.color = "red";
         var answersList = document.getElementById("answers");
         answersList.appendChild(redWrong);
+        secondsLeft = secondsLeft - 5;
     };
     if (currentQuestion < questionArray.length - 1){
         currentQuestion++;
