@@ -141,6 +141,7 @@ function verifyAnswer(answer) {
         answersList.appendChild(greenCorrect);
         localStorage.setItem("correct", numberOfCorrect);
     } else {
+        secondsLeft - 5;
         var redWrong = document.createElement("h2");
         redWrong.textContent = "Incorrect";
         redWrong.style.color = "red";
